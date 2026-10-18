@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Analysis Coach | AI-Powered Game Review & Weakness Profiler</title>
+  <meta name="description" content="Analyze your chess games with Stockfish engine evaluation and AI-powered move explanations with citations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Chessboard.js CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-icon">♞</div>
+        <div>
+          <h1 class="brand-title">Chess Analysis Coach</h1>
+          <p class="brand-subtitle">Stockfish engine evaluation + RAG-powered coaching</p>
+        </div>
+      </div>
+      <!-- Tab Navigation -->
+      <nav class="nav-tabs">
+        <button id="tab-btn-analyze" class="tab-btn active" data-tab="tab-analyze">Analyze Game</button>
+        <button id="tab-btn-weaknesses" class="tab-btn" data-tab="tab-weaknesses">My Weaknesses</button>
+        <button id="tab-btn-ask" class="tab-btn" data-tab="tab-ask">Ask Coach</button>
+      </nav>
+      <div class="header-badges">
+        <span class="badge badge-rag">RAG Pipeline</span>
+        <span class="badge badge-engine">Stockfish Engine</span>
+      </div>
+    </header>
+
+    <!-- TAB 1: ANALYZE GAME -->
+    <main id="tab-analyze" class="tab-pane active app-main">
+      <!-- Left Panel: PGN Input & Move List -->
+      <section class="panel panel-left">
+        <!-- PGN Input Card -->
+        <div class="card pgn-card">
+          <div class="card-header">
+            <h2 class="card-title">Game Input (PGN)</h2>
+            <button id="btn-sample" class="btn btn-ghost btn-sm" type="button" title="Load a sample game with blunders">Load Sample Game</button>
+          </div>
+          <div class="card-body">
+            <textarea id="pgn-input" class="pgn-textarea" placeholder="Paste your PGN game here... e.g. 1. e4 e5 2. Qh5 Nc6 3. Bc4 Nf6 4. Qxf7#" rows="5" spellcheck="false"></textarea>
+            
+            <div class="analysis-controls">
+              <div class="depth-picker">
+                <label for="depth-input">Search Depth:</label>
+                <input type="number" id="depth-input" value="14" min="8" max="22" step="1">
+              </div>
+              <button id="btn-analyze" class="btn btn-primary" type="button">
+                <span class="btn-spinner" id="analyze-spinner" style="display: none;"></span>
+                <span id="analyze-btn-text">Analyze Game</span>
+              </button>
+            </div>
+
+            <!-- Status Banner -->
+            <div id="status-banner" class="status-banner status-idle">
+              <span id="status-icon" class="status-icon">●</span>
+              <span id="status-text">Paste a PGN and click "Analyze Game" to start.</span>
+            </div>
+
+            <!-- Stats Bar (visible after analysis) -->
+            <div id="stats-bar" class="stats-bar" style="display: none;">
+              <div class="stat-pill"><span class="stat-label">Moves</span><span id="stat-total" class="stat-value">0</span></div>
+              <div class="stat-pill stat-blunder"><span class="stat-label">Blunders</span><span id="stat-blunders" class="stat-value">0</span></div>
+              <div class="stat-pill stat-mistake"><span class="stat-label">Mistakes</span><span id="stat-mistakes" class="stat-value">0</span></div>
+              <div class="stat-pill stat-inaccuracy"><span class="stat-label">Inaccuracies</span><span id="stat-inaccuracies" class="stat-value">0</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Move List Card -->
+        <div class="card move-list-card">
+          <div class="card-header">
+            <h2 class="card-title">Move Notation</h2>
+            <div class="legend">
+              <span class="legend-item"><span class="dot dot-blunder"></span>Blunder</span>
+              <span class="legend-item"><span class="dot dot-mistake"></span>Mistake</span>
+              <span class="legend-item"><span class="dot dot-inaccuracy"></span>Inaccuracy</span>
+            </div>
+          </div>
+          <div class="card-body move-list-body">
+            <div id="move-list" class="move-list">
+              <div class="empty-hint">Moves will appear here after loading a game.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel: Chessboard & AI Explanation -->
+      <section class="panel panel-right">
+        <!-- Board Card -->
+        <div class="card board-card">
+          <div class="board-wrapper">
+            <div id="board" class="board-element"></div>
+          </div>
+
+          <!-- Board Navigation Toolbar -->
+          <div class="board-controls">
+            <div class="btn-group">
+              <button id="btn-first" class="btn btn-control" title="First Move (Home)">|◀</button>
+              <button id="btn-prev" class="btn btn-control" title="Previous Move (Left Arrow)">◀</button>
+              <button id="btn-next" class="btn btn-control" title="Next Move (Right Arrow)">▶</button>
+              <button id="btn-last" class="btn btn-control" title="Last Move (End)">▶|</button>
+            </div>
+            <div class="board-status-indicator">
+              <span id="move-indicator">Start of game</span>
+            </div>
+            <button id="btn-flip" class="btn btn-control" title="Flip Board">⇄ Flip</button>
+          </div>
+
+          <!-- Similar Positions Toolbar Button -->
+          <div class="similar-actions-row">
+            <button id="btn-find-similar" class="btn btn-ghost btn-sm" type="button">
+              <span id="similar-spinner" class="btn-spinner" style="display: none;"></span>
+              <span>🔍 Find Similar Master Positions</span>
+            </button>
+          </div>
+
+          <!-- Similar Positions Results Drawer (hidden by default) -->
+          <div id="similar-results-drawer" class="similar-results-drawer" style="display: none;">
+            <div class="similar-header">
+              <h3 class="similar-title">Similar Master Positions</h3>
+              <span id="similar-match-badge" class="badge badge-rag">0 Matches</span>
+            </div>
+            <div id="similar-content" class="similar-content">
+              <div class="table-responsive">
+                <table class="weakness-table">
+                  <thead>
+                    <tr>
+                      <th>Move</th>
+                      <th>Played</th>
+                      <th>Master Win %</th>
+                      <th>Record (W-D-L)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="similar-moves-table-body"></tbody>
+                </table>
+              </div>
+              <div id="similar-summary-text" class="explanation-content" style="margin-top: 0.75rem;"></div>
+              <div id="similar-examples-container" style="margin-top: 0.5rem; display: none;">
+                <span class="sources-label">Example Master Games:</span>
+                <div id="similar-examples-list" class="sources-tags" style="margin-top: 0.35rem;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Explanation Card -->
+        <div class="card explanation-card">
+          <div class="card-header">
+            <div class="explanation-title-row">
+              <h2 class="card-title">Coach's Explanation</h2>
+              <div id="move-class-badge" class="badge" style="display: none;"></div>
+            </div>
+            <div id="eval-shift-badge" class="eval-shift" style="display: none;"></div>
+          </div>
+          <div class="card-body">
+            <!-- Move details (played vs best) -->
+            <div id="move-comparison" class="move-comparison" style="display: none;">
+              <div class="comparison-col comparison-played">
+                <span class="comparison-label">Played:</span>
+                <span id="played-move-text" class="comparison-move">--</span>
+              </div>
+              <div class="comparison-col comparison-best">
+                <span class="comparison-label">Best Move:</span>
+                <span id="best-move-text" class="comparison-move">--</span>
+              </div>
+            </div>
+
+            <!-- Explanation text -->
+            <div id="explanation-content" class="explanation-content">
+              <p class="placeholder-text">Click on any highlighted move in the list to inspect the engine evaluation and read the coach's explanation.</p>
+            </div>
+
+            <!-- Citations & Sources -->
+            <div id="sources-container" class="sources-container" style="display: none;">
+              <span class="sources-label">Study references:</span>
+              <div id="sources-tags" class="sources-tags"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- TAB 2: MY WEAKNESSES -->
+    <main id="tab-weaknesses" class="tab-pane app-weaknesses">
+      <div class="card weakness-input-card">
+        <div class="card-header">
+          <h2 class="card-title">Weakness Profile & Study Recommendations</h2>
+        </div>
+        <div class="card-body">
+          <p class="weakness-intro">Analyze your blunder patterns across game phases, opening families, piece types, and game situations. Statistical detection computed by code, backed by RAG coaching.</p>
+          
+          <div class="weakness-controls">
+            <div class="player-input-group">
+              <label for="weakness-player-input">Player Username:</label>
+              <input type="text" id="weakness-player-input" class="text-input" placeholder="e.g. MagnusCarlsen">
+            </div>
+            <div class="weakness-btn-group">
+              <button id="btn-fetch-weaknesses" class="btn btn-primary" type="button">
+                <span id="weakness-spinner" class="btn-spinner" style="display: none;"></span>
+                <span>Get Weakness Summary</span>
+              </button>
+              <button id="btn-import-lichess" class="btn btn-ghost" type="button">
+                <span id="lichess-spinner" class="btn-spinner" style="display: none;"></span>
+                <span>Import 5 Games from Lichess</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="weakness-status" class="status-banner status-idle">
+            <span>Enter a username and click "Get Weakness Summary" or import from Lichess.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weakness Report Results (hidden until loaded) -->
+      <div id="weakness-results" class="weakness-results" style="display: none;">
+        <!-- Top Weaknesses Table Card -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Top Statistical Weaknesses</h2>
+            <div id="overall-rate-badge" class="badge badge-blunder"></div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="weakness-table">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Dimension</th>
+                    <th>Moves</th>
+                    <th>Mistakes + Blunders</th>
+                    <th>Error Rate</th>
+                    <th>Above Average</th>
+                  </tr>
+                </thead>
+                <tbody id="weakness-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Coach Study Advice Card -->
+        <div class="card explanation-card">
+          <div class="card-header">
+            <h2 class="card-title">Personalized Study Plan</h2>
+          </div>
+          <div class="card-body">
+            <div id="weakness-coaching-text" class="explanation-content"></div>
+            <div id="weakness-sources-container" class="sources-container" style="display: none;">
+              <span class="sources-label">Recommended study sources:</span>
+              <div id="weakness-sources-tags" class="sources-tags"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- TAB 3: ASK COACH -->
+    <main id="tab-ask" class="tab-pane app-ask">
+      <div class="card chat-card">
+        <div class="card-header">
+          <h2 class="card-title">Ask-a-Question Chat (Knowledge Base RAG)</h2>
+          <span class="badge badge-rag">RAG + Engine</span>
+        </div>
+        <div class="card-body">
+          <p class="weakness-intro">Ask strategic, opening, or endgame questions. You can also paste a FEN position to have Stockfish evaluate it along with tactical advice.</p>
+          
+          <!-- Chat Thread Container -->
+          <div id="chat-messages" class="chat-messages">
+            <div class="chat-msg coach-msg">
+              <div class="msg-sender">AI Chess Coach</div>
+              <div class="msg-bubble">
+                <p>Hello! Ask me any question from our chess knowledge base (openings, middlegame strategies, endgames), or paste a FEN position to analyze.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Input Controls -->
+          <div class="chat-input-row" style="margin-top: 1rem;">
+            <input type="text" id="chat-question-input" class="text-input" placeholder="e.g. Why is the Caro-Kann Advance considered solid? Or paste a FEN...">
+            <button id="btn-chat-ask" class="btn btn-primary" type="button">
+              <span id="chat-spinner" class="btn-spinner" style="display: none;"></span>
+              <span>Ask Coach</span>
+            </button>
+          </div>
+          <div id="chat-status" class="status-banner status-idle" style="display: none; margin-top: 0.75rem;"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- jQuery (required by chessboard.js) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Chessboard.js -->
+  <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+  <!-- Chess.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+  <!-- Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>

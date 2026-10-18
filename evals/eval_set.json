@@ -1,0 +1,422 @@
+{
+  "retrieval_cases": [
+    {
+      "id": "q1",
+      "query": "doubled pawns weakness mobility",
+      "expected_source_keywords": [
+        "doubled",
+        "pawn_structure",
+        "pawn"
+      ],
+      "expected_sources": [
+        "article_pawn_structure_doubled"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q2",
+      "query": "isolated queen pawn IQP dynamic chances outpost",
+      "expected_source_keywords": [
+        "isolated",
+        "iqp",
+        "pawn"
+      ],
+      "expected_sources": [
+        "article_pawn_structure_isolated"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q3",
+      "query": "backward pawn outpost enemy square advance",
+      "expected_source_keywords": [
+        "backward",
+        "outpost",
+        "pawn"
+      ],
+      "expected_sources": [
+        "article_pawn_structure_backward"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q4",
+      "query": "Caro-Kann Defense Advance Variation e4 c6 d4 d5 e5",
+      "expected_source_keywords": [
+        "caro-kann",
+        "advance",
+        "b12"
+      ],
+      "expected_sources": [
+        "opening_B12"
+      ],
+      "category": "opening"
+    },
+    {
+      "id": "q5",
+      "query": "Italian Game 1. e4 e5 2. Nf3 Nc6 3. Bc4",
+      "expected_source_keywords": [
+        "italian",
+        "c50",
+        "bc4"
+      ],
+      "expected_sources": [
+        "opening_C50"
+      ],
+      "category": "opening"
+    },
+    {
+      "id": "q6",
+      "query": "Queen's Gambit 1. d4 d5 2. c4",
+      "expected_source_keywords": [
+        "queen's gambit",
+        "d06",
+        "c4"
+      ],
+      "expected_sources": [
+        "opening_D06"
+      ],
+      "category": "opening"
+    },
+    {
+      "id": "q7",
+      "query": "Van't Kruijs Opening 1. e3",
+      "expected_source_keywords": [
+        "van't kruijs",
+        "a00",
+        "e3"
+      ],
+      "expected_sources": [
+        "opening_A00"
+      ],
+      "category": "opening"
+    },
+    {
+      "id": "q8",
+      "query": "pawn structure skeleton permanently alters",
+      "expected_source_keywords": [
+        "pawn",
+        "skeleton",
+        "structure"
+      ],
+      "expected_sources": [
+        "article_pawn_structure"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q9",
+      "query": "half-open file rooks pressure rear pawn",
+      "expected_source_keywords": [
+        "doubled",
+        "rooks",
+        "file"
+      ],
+      "expected_sources": [
+        "article_pawn_structure_doubled"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q10",
+      "query": "outpost square for knight no pawn challenge",
+      "expected_source_keywords": [
+        "isolated",
+        "outpost",
+        "square"
+      ],
+      "expected_sources": [
+        "article_pawn_structure_isolated"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q11",
+      "query": "B12 opening moves",
+      "expected_source_keywords": [
+        "caro-kann",
+        "b12"
+      ],
+      "expected_sources": [
+        "opening_B12"
+      ],
+      "category": "opening"
+    },
+    {
+      "id": "q12",
+      "query": "C50 Italian Game Bc4",
+      "expected_source_keywords": [
+        "italian",
+        "c50"
+      ],
+      "expected_sources": [
+        "opening_C50"
+      ],
+      "category": "opening"
+    },
+    {
+      "id": "q13",
+      "query": "D06 Queen's Gambit d4 d5 c4",
+      "expected_source_keywords": [
+        "d06",
+        "queen's gambit"
+      ],
+      "expected_sources": [
+        "opening_D06"
+      ],
+      "category": "opening"
+    },
+    {
+      "id": "q14",
+      "query": "endgame weakness isolated queen pawn",
+      "expected_source_keywords": [
+        "iqp",
+        "isolated",
+        "endgame"
+      ],
+      "expected_sources": [
+        "article_pawn_structure_isolated"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q15",
+      "query": "pawn breaks mobility limited",
+      "expected_source_keywords": [
+        "doubled",
+        "pawn breaks",
+        "mobility"
+      ],
+      "expected_sources": [
+        "article_pawn_structure_doubled"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q16",
+      "query": "control key squares open files rooks",
+      "expected_source_keywords": [
+        "doubled",
+        "files",
+        "rooks"
+      ],
+      "expected_sources": [
+        "article_pawn_structure_doubled"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q17",
+      "query": "friendly pawns adjacent files missing",
+      "expected_source_keywords": [
+        "isolated",
+        "pawns",
+        "adjacent"
+      ],
+      "expected_sources": [
+        "article_pawn_structure_isolated"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q18",
+      "query": "enemy pawn controls square in front",
+      "expected_source_keywords": [
+        "backward",
+        "square in front"
+      ],
+      "expected_sources": [
+        "article_pawn_structure_backward"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q19",
+      "query": "strong outpost opponent backward pawn",
+      "expected_source_keywords": [
+        "backward",
+        "outpost"
+      ],
+      "expected_sources": [
+        "article_pawn_structure_backward"
+      ],
+      "category": "pawn_structure"
+    },
+    {
+      "id": "q20",
+      "query": "Caro-Kann Advance 3. e5",
+      "expected_source_keywords": [
+        "caro-kann",
+        "e5"
+      ],
+      "expected_sources": [
+        "opening_B12"
+      ],
+      "category": "opening"
+    }
+  ],
+  "out_of_scope_cases": [
+    {
+      "id": "oos1",
+      "question": "What is the best recipe for chocolate cake?",
+      "out_of_scope": true
+    },
+    {
+      "id": "oos2",
+      "question": "Who won the FIFA World Cup in 2018?",
+      "out_of_scope": true
+    },
+    {
+      "id": "oos3",
+      "question": "How do I configure nginx for reverse proxy in Ubuntu?",
+      "out_of_scope": true
+    },
+    {
+      "id": "oos4",
+      "question": "What is the current stock price of Apple Inc?",
+      "out_of_scope": true
+    },
+    {
+      "id": "oos5",
+      "question": "Can you explain quantum computing and superposition?",
+      "out_of_scope": true
+    },
+    {
+      "id": "oos6",
+      "question": "Who directed the movie Interstellar?",
+      "out_of_scope": true
+    },
+    {
+      "id": "oos7",
+      "question": "What is the weather forecast in Tokyo tomorrow?",
+      "out_of_scope": true
+    },
+    {
+      "id": "oos8",
+      "question": "How do you calculate compound interest in economics?",
+      "out_of_scope": true
+    }
+  ],
+  "faithfulness_cases": [
+    {
+      "id": "f1",
+      "fen_before": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1",
+      "played_san": "Qe7",
+      "played_uci": "d8e7",
+      "engine_pv": [
+        "c7c5",
+        "g1f3"
+      ],
+      "text": "Black played Qe7, but the engine prefers c5 followed by Nf3 [c1].",
+      "expected_faithful": true
+    },
+    {
+      "id": "f2",
+      "fen_before": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1",
+      "played_san": "Qe7",
+      "played_uci": "d8e7",
+      "engine_pv": [
+        "c7c5",
+        "g1f3"
+      ],
+      "text": "Black should have played Nf6 or Bb4 to attack the king.",
+      "expected_faithful": false,
+      "hallucinated_moves": [
+        "Nf6",
+        "Bb4"
+      ]
+    },
+    {
+      "id": "f3",
+      "fen_before": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "played_san": "f3",
+      "played_uci": "f2f3",
+      "engine_pv": [
+        "d2d4",
+        "c7c5"
+      ],
+      "text": "White played f3 weakening the kingside. The engine recommends d4 instead [src-1].",
+      "expected_faithful": true
+    },
+    {
+      "id": "f4",
+      "fen_before": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "played_san": "h3",
+      "played_uci": "h2h3",
+      "engine_pv": [
+        "g1f3",
+        "b8c6"
+      ],
+      "text": "White played h3. Why not play Qh5 followed by Bc4 for Scholar's Mate?",
+      "expected_faithful": false,
+      "hallucinated_moves": [
+        "Qh5",
+        "Bc4"
+      ]
+    },
+    {
+      "id": "f5",
+      "fen_before": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "played_san": "Bc4",
+      "played_uci": "f1c4",
+      "engine_pv": [
+        "d2d4",
+        "e5d4"
+      ],
+      "text": "White chose Bc4 instead of d4. The engine suggests d4 striking at the center.",
+      "expected_faithful": true
+    }
+  ],
+  "in_scope_cases": [
+    {
+      "id": "is1",
+      "question": "What is the idea behind the Caro-Kann Advance variation?",
+      "expected_topic": "opening"
+    },
+    {
+      "id": "is2",
+      "question": "Why are doubled pawns considered a weakness?",
+      "expected_topic": "pawn_structure"
+    },
+    {
+      "id": "is3",
+      "question": "What are dynamic chances of an isolated queen pawn?",
+      "expected_topic": "pawn_structure"
+    },
+    {
+      "id": "is4",
+      "question": "How to exploit a backward pawn on a half-open file?",
+      "expected_topic": "pawn_structure"
+    },
+    {
+      "id": "is5",
+      "question": "Tell me about the Italian Game opening moves.",
+      "expected_topic": "opening"
+    },
+    {
+      "id": "is6",
+      "question": "What is the Queen's Gambit opening idea?",
+      "expected_topic": "opening"
+    },
+    {
+      "id": "is7",
+      "question": "Why is pawn structure called the skeleton of chess?",
+      "expected_topic": "pawn_structure"
+    },
+    {
+      "id": "is8",
+      "question": "What moves define the Van't Kruijs opening?",
+      "expected_topic": "opening"
+    }
+  ],
+  "move_classification_cases": [
+    {"eval_before": 0, "eval_after": -20, "side": "white", "expected_class": "good"},
+    {"eval_before": 50, "eval_after": -10, "side": "white", "expected_class": "inaccuracy"},
+    {"eval_before": 100, "eval_after": -20, "side": "white", "expected_class": "mistake"},
+    {"eval_before": 150, "eval_after": -200, "side": "white", "expected_class": "blunder"},
+    {"eval_before": -50, "eval_after": 20, "side": "black", "expected_class": "inaccuracy"},
+    {"eval_before": -100, "eval_after": 50, "side": "black", "expected_class": "mistake"},
+    {"eval_before": -20, "eval_after": 350, "side": "black", "expected_class": "blunder"},
+    {"eval_before": 0, "eval_after": 10, "side": "black", "expected_class": "good"}
+  ]
+}

@@ -1,0 +1,37 @@
+# Environment
+.env
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# Data & Databases (generated, not tracked)
+data/chroma/
+*.db
+*.sqlite
+*.sqlite3
+
+# Test caches & builds
+.pytest_cache/
+
+# Binaries
+stockfish
+stockfish.exe
+*.exe
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Internal docs
+plan.md
+PLAN.md

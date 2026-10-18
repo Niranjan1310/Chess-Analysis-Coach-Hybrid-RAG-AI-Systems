@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  chess-rag:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chess_analysis_coach
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.0-flash}
+      - STOCKFISH_PATH=/usr/games/stockfish
+      - STOCKFISH_DEPTH=14
+      - DATABASE_URL=sqlite:////app/data/chessmind.db
+      - RETRIEVAL_MIN_SCORE=0.3
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
