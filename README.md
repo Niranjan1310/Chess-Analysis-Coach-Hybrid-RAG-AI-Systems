@@ -144,8 +144,6 @@ INACCURACY_THRESHOLD=50
 MISTAKE_THRESHOLD=100
 BLUNDER_THRESHOLD=300
 ```
-> [!NOTE]
-> *Never commit `.env`.*
 
 ### Step 3: Build the Knowledge Base (once)
 From the repo root:
